@@ -16,8 +16,8 @@ from torchvision.models.detection.rpn import AnchorGenerator, RPNHead
 save_model_folder = 'model'
 output_image_folder = 'output'
 num_classes = 3  # 2 class (person) + background
-batch_size = 1
-num_epochs = 10
+batch_size = 3
+num_epochs = 1
 
 
 if __name__ == "__main__":

@@ -4,18 +4,6 @@ from xml.dom.minidom import parse
 from shutil import copyfile
 import random
 import re
-
-# Cleanup
-for dirname, _, filenames in os.walk('../../data/original_data/images'):
-    for filename in filenames:
-        img_path = os.path.join('../../data/original_data/images', filename)
-        annot_path = os.path.splitext(img_path)[0]+'.xml'
-        head,tail1 = os.path.split(annot_path)
-        head,tail2 = os.path.split(head)
-        annot_path = os.path.join(head, 'annotations',tail1)
-        if not os.path.isfile(annot_path):
-            os.remove(img_path)
-            print('removed:' ,img_path)
         
         
 print('total image num = ', len(os.listdir(os.path.join('../../data/original_data', "images"))))

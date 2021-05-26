@@ -125,11 +125,11 @@ def get_model_result(img, model, target, i, device, location="", threshold=0.45)
     text_labels = []
     for i in range(len(labels)):
         if labels[i]==1:
-            text_labels.append("sign")
+            text_labels.append("det")
         elif labels[i]==2:
-            text_labels.append('sign')
+            text_labels.append('det')
         elif labels[i]==2:
-            text_labels.append('sign')
+            text_labels.append('det')
         
     orig = Image.fromarray(img.mul(255).permute(1, 2, 0).byte().numpy())
     
