@@ -13,7 +13,9 @@ import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.rpn import AnchorGenerator, RPNHead
 
-save_model_folder = 'model'
+
+PATH = 'Weight.pth'
+
 output_image_folder = 'output'
 num_classes = 3  # 2 class (person) + background
 batch_size = 3
@@ -58,6 +60,9 @@ if __name__ == "__main__":
     # replace the pre-trained head with a new one
     model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
 
+    if os.path.isfile(PATH):
+        model.load_state_dict(torch.load(PATH))
+
     model.to(device)
     params = [p for p in model.parameters() if p.requires_grad]
     optimizer = torch.optim.SGD(params, lr=0.005,
@@ -95,10 +100,8 @@ if __name__ == "__main__":
     
     torch.cuda.synchronize()
     # create directory for saving the model
-    if not os.path.exists(save_model_folder):
-        os.mkdir(save_model_folder)
     print("Saving model...")
-    torch.save(model.state_dict(), os.path.join(save_model_folder, 'FaceMaskDetection_TrainEpoch' + '.pth'))
+    torch.save(model.state_dict(), PATH)
     print("Model saving complete!")
     nvidia_smi.nvmlShutdown()
 
